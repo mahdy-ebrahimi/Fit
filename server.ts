@@ -21,6 +21,58 @@ app.get("/api/health", (_req, res) => {
   res.status(200).json({ status: "ok", time: new Date().toISOString() });
 });
 
+// Character and Logo Upload Endpoints
+app.post("/api/upload-asset", (req, res) => {
+  try {
+    const { type, dataUrl } = req.body;
+    if (!type || !dataUrl) {
+      return res.status(400).json({ error: "نوع تصویر و داده فایل الزامی است." });
+    }
+
+    const base64Data = dataUrl.replace(/^data:image\/\w+;base64,/, "");
+    const buffer = Buffer.from(base64Data, "base64");
+    const filename = type === "logo" ? "gord_logo.png" : "gord_character.png";
+
+    const publicDir = path.join(__dirname, "public");
+    if (!fs.existsSync(publicDir)) {
+      fs.mkdirSync(publicDir, { recursive: true });
+    }
+    const publicPath = path.join(publicDir, filename);
+    fs.writeFileSync(publicPath, buffer);
+
+    const distDir = path.join(__dirname, "dist");
+    if (fs.existsSync(distDir)) {
+      fs.writeFileSync(path.join(distDir, filename), buffer);
+    }
+
+    const cpanelDir = path.join(__dirname, "cpanel");
+    if (fs.existsSync(cpanelDir)) {
+      fs.writeFileSync(path.join(cpanelDir, filename), buffer);
+    }
+
+    return res.status(200).json({
+      success: true,
+      url: `/${filename}?t=${Date.now()}`,
+      filename,
+    });
+  } catch (err: any) {
+    console.error("Asset upload error:", err);
+    return res.status(500).json({ error: err?.message || "خطا در ذخیره تصویر" });
+  }
+});
+
+app.get("/api/asset-status", (_req, res) => {
+  const publicDir = path.join(__dirname, "public");
+  const hasCharacter = fs.existsSync(path.join(publicDir, "gord_character.png"));
+  const hasLogo = fs.existsSync(path.join(publicDir, "gord_logo.png"));
+  res.status(200).json({
+    hasCharacter,
+    characterUrl: hasCharacter ? `/gord_character.png` : null,
+    hasLogo,
+    logoUrl: hasLogo ? `/gord_logo.png` : null,
+  });
+});
+
 // Initialize Google Gen AI
 const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,

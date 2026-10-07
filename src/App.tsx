@@ -14,6 +14,7 @@ import { BottomNav, AppNavTab } from './components/BottomNav';
 import { ConfirmModal } from './components/ConfirmModal';
 import { GordLandingPage } from './components/GordLandingPage';
 import { GordInteractiveCoachForm } from './components/GordInteractiveCoachForm';
+import { AssetUploadModal } from './components/AssetUploadModal';
 import { GeneratedPlan, UserAccount, UserProfile } from './types/fitness';
 import { generateScientificFallbackPlan } from './utils/fallbackPlanGenerator';
 import {
@@ -47,6 +48,7 @@ export default function App() {
     return getCurrentUser();
   });
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
+  const [showAssetUploadModal, setShowAssetUploadModal] = useState<boolean>(false);
 
   // Profile & Plan State
   const [profile, setProfile] = useState<UserProfile | null>(() => {
@@ -318,6 +320,7 @@ export default function App() {
         onSelectTab={handleSelectTab}
         onOpenForm={() => navigateTo('coach-dialogue')}
         onOpenLanding={() => navigateTo('landing')}
+        onOpenAssetUpload={() => setShowAssetUploadModal(true)}
         currentView={currentView}
       />
 
@@ -425,9 +428,16 @@ export default function App() {
             onViewExistingPlan={() => navigateTo('dashboard')}
             onSubmitProfile={handleGeneratePlan}
             isLoading={isLoading}
+            onOpenAssetUpload={() => setShowAssetUploadModal(true)}
           />
         )}
       </main>
+
+      {/* Asset Upload Modal (Character Sheet & Logo) */}
+      <AssetUploadModal
+        isOpen={showAssetUploadModal}
+        onClose={() => setShowAssetUploadModal(false)}
+      />
 
       {/* Auth Modal (Login / Register) */}
       <AuthModal

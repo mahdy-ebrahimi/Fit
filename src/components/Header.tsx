@@ -5,6 +5,7 @@ import {
   Download,
   Dumbbell,
   FolderDown,
+  ImagePlus,
   Printer,
   Smartphone,
   Sparkles,
@@ -34,6 +35,7 @@ interface HeaderProps {
   onSelectTab?: (tab: AppNavTab) => void;
   onOpenForm?: () => void;
   onOpenLanding?: () => void;
+  onOpenAssetUpload?: () => void;
   currentView?: 'landing' | 'coach-dialogue' | 'dashboard' | 'user-panel' | 'form';
 }
 
@@ -51,6 +53,7 @@ export const Header: React.FC<HeaderProps> = ({
   onSelectTab,
   onOpenForm,
   onOpenLanding,
+  onOpenAssetUpload,
   currentView = 'landing',
 }) => {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
@@ -144,6 +147,18 @@ export const Header: React.FC<HeaderProps> = ({
           >
             <FolderDown className="w-4 h-4" />
           </a>
+
+          {/* Upload Exact Character & Logo Button */}
+          {onOpenAssetUpload && (
+            <button
+              type="button"
+              onClick={onOpenAssetUpload}
+              className="w-10 h-10 rounded-full glass-input flex items-center justify-center hover:bg-[#FF6B00]/20 hover:border-[#FF6B00]/40 text-[#FF6B00] transition active:scale-95"
+              title="بارگذاری مستقیم عکس اصلی کاراکتر و لوگو (IMG_5171 / IMG_5174)"
+            >
+              <ImagePlus className="w-4 h-4" />
+            </button>
+          )}
 
           {/* User Profile avatar */}
           {currentUser ? (

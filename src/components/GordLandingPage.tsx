@@ -53,6 +53,7 @@ interface GordLandingPageProps {
   onViewExistingPlan?: () => void;
   onSubmitProfile: (profile: UserProfile) => void;
   isLoading: boolean;
+  onOpenAssetUpload?: () => void;
 }
 
 interface CoachStepDialogue {
@@ -139,6 +140,7 @@ export const GordLandingPage: React.FC<GordLandingPageProps> = ({
   onViewExistingPlan,
   onSubmitProfile,
   isLoading,
+  onOpenAssetUpload,
 }) => {
   // Stepper State for the In-Landing Coach Consultation
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -349,12 +351,31 @@ export const GordLandingPage: React.FC<GordLandingPageProps> = ({
 
             {/* Official Character Mascot in Active Pose */}
             <div className="relative py-2 flex flex-col items-center">
-              <GordMascotFigure pose={stepInfo.pose} size="hero" showShadow={true} withGlow={true} />
+              <GordMascotFigure
+                pose={stepInfo.pose}
+                size="hero"
+                showShadow={true}
+                withGlow={true}
+                onOpenUpload={onOpenAssetUpload}
+              />
 
-              {/* Character Identity Badge */}
-              <div className="mt-2 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0a1630] border border-[#FF6B00]/40 text-xs font-black text-amber-300 shadow-md">
-                <Award className="w-4 h-4 text-[#FF6B00]" />
-                <span>گُرد | مربی رسمی فیتنس و تغذیه هوشمند</span>
+              {/* Character Identity Badge & Direct Upload Trigger */}
+              <div className="mt-2 flex flex-col sm:flex-row items-center gap-2">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0a1630] border border-[#FF6B00]/40 text-xs font-black text-amber-300 shadow-md">
+                  <Award className="w-4 h-4 text-[#FF6B00]" />
+                  <span>گُرد | مربی رسمی فیتنس و تغذیه هوشمند</span>
+                </div>
+
+                {onOpenAssetUpload && (
+                  <button
+                    type="button"
+                    onClick={onOpenAssetUpload}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/15 hover:bg-amber-500/30 border border-amber-500/40 text-amber-300 text-xs font-bold transition-all shadow-sm hover:scale-105 active:scale-95 cursor-pointer"
+                    title="بارگذاری مستقیم فایل تصویر کاراکتر و لوگو"
+                  >
+                    <span>📷 بارگذاری فایل عکس کاراکتر (IMG_5171)</span>
+                  </button>
+                )}
               </div>
             </div>
           </div>
