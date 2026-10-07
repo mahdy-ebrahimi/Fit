@@ -339,6 +339,34 @@ export const PlanDashboard: React.FC<PlanDashboardProps> = ({
         </div>
       )}
 
+      {/* Gord Coach Questionnaire Prompt Banner */}
+      <div
+        onClick={onEditProfile}
+        className="rounded-3xl p-3.5 sm:p-4 bg-gradient-to-r from-[#FF6B00]/15 via-[#09152b] to-[#FF6B00]/10 border border-[#FF6B00]/30 flex items-center justify-between gap-3 cursor-pointer hover:border-[#FF6B00]/60 transition-all shadow-md group no-print"
+      >
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-[#FF6B00] to-amber-500 flex items-center justify-center text-black font-black text-xs shadow-glow shrink-0">
+            گُرد
+          </div>
+          <div className="text-right">
+            <div className="text-xs sm:text-sm font-black text-white group-hover:text-amber-300 transition-colors flex items-center gap-1.5">
+              <span>می‌خواهید مشخصات جدید را با مربی گُرد (GORD) تنظیم کنید؟</span>
+              <Sparkles className="w-3.5 h-3.5 text-[#FF6B00] animate-pulse" />
+            </div>
+            <div className="text-[11px] text-slate-300 mt-0.5">
+              روی این بخش بزنید تا کاراکتر مربی گُرد با شیت اختصاصی، تمام سوالات قد، وزن، عضلات و آسیب‌ها را از شما بپرسد.
+            </div>
+          </div>
+        </div>
+        <button
+          type="button"
+          onClick={onEditProfile}
+          className="px-3.5 py-2 rounded-xl bg-[#FF6B00] text-black font-black text-xs shadow-glow shrink-0 hover:scale-105 active:scale-95 transition-all"
+        >
+          شروع با مربی گُرد
+        </button>
+      </div>
+
       {/* Pro Athlete Top Dashboard Card */}
       <div className="rounded-3xl glass-panel p-6 sm:p-7 shadow-glass relative overflow-hidden border border-white/5">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-5 pb-5 border-b border-white/10">

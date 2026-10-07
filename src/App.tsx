@@ -313,6 +313,8 @@ export default function App() {
         }}
         currentTab={currentTab}
         onSelectTab={handleSelectTab}
+        onOpenForm={() => navigateTo('form')}
+        currentView={currentView}
       />
 
       {/* Offline Status Top Banner */}
@@ -439,6 +441,8 @@ export default function App() {
           currentTab={currentView === 'user-panel' ? 'profile' : currentTab}
           onSelectTab={handleSelectTab}
           hasPlan={!!plan}
+          onOpenForm={() => navigateTo('form')}
+          currentView={currentView}
         />
       )}
 

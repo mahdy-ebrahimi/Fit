@@ -7,6 +7,7 @@ import {
   FolderDown,
   Printer,
   Smartphone,
+  Sparkles,
   TrendingUp,
   User,
   Utensils,
@@ -31,6 +32,8 @@ interface HeaderProps {
   onOpenUserPanel?: () => void;
   currentTab?: AppNavTab;
   onSelectTab?: (tab: AppNavTab) => void;
+  onOpenForm?: () => void;
+  currentView?: 'dashboard' | 'form' | 'user-panel';
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -45,6 +48,8 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenUserPanel,
   currentTab = 'workout',
   onSelectTab,
+  onOpenForm,
+  currentView = 'form',
 }) => {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallModal, setShowInstallModal] = useState<boolean>(false);
@@ -157,6 +162,28 @@ export const Header: React.FC<HeaderProps> = ({
               ورود
             </button>
           )}
+          {/* Quick Switch to Gord Coach Questionnaire or Active Plan */}
+          {currentView !== 'form' && onOpenForm ? (
+            <button
+              type="button"
+              onClick={onOpenForm}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-orange-500 to-amber-500 text-black text-xs font-black shadow-glow hover:scale-105 active:scale-95 transition-all mr-1"
+              title="طراحی و دریافت برنامه جدید با مربی گُرد"
+            >
+              <Sparkles className="w-3.5 h-3.5 fill-black" />
+              <span>فرم مربی گُرد</span>
+            </button>
+          ) : hasPlan && onSelectTab ? (
+            <button
+              type="button"
+              onClick={() => onSelectTab('workout')}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl glass-input text-amber-400 text-xs font-bold hover:bg-white/10 active:scale-95 transition-all mr-1"
+              title="مشاهده برنامه تمرینی فعلی"
+            >
+              <Dumbbell className="w-3.5 h-3.5" />
+              <span>برنامه جاری</span>
+            </button>
+          ) : null}
         </div>
 
         {/* Center: Desktop Tabs */}
@@ -219,7 +246,15 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Official GORD (گُرد) Brand Logo */}
         <div
           className="flex items-center gap-2 cursor-pointer select-none"
-          onClick={() => onSelectTab && onSelectTab('workout')}
+          onClick={() => {
+            if (currentView === 'form' && hasPlan && onSelectTab) {
+              onSelectTab('workout');
+            } else if (onOpenForm) {
+              onOpenForm();
+            } else if (onSelectTab) {
+              onSelectTab('workout');
+            }
+          }}
           title="گُرد (GORD) - مربی هوش مصنوعی بدنسازی و تغذیه"
         >
           <GordLogo size="header" showSubtitle={true} withGlow={true} />

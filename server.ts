@@ -552,7 +552,7 @@ app.post("/api/suggest-alternative", async (req, res) => {
 async function setupServer() {
   const distPath = path.resolve(__dirname, "dist");
   const hasDist = fs.existsSync(path.join(distPath, "index.html"));
-  const isProd = process.env.NODE_ENV === "production" || hasDist;
+  const isProd = process.env.NODE_ENV === "production";
 
   if (isProd && hasDist) {
     app.use(express.static(distPath));
