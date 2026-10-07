@@ -33,7 +33,8 @@ interface HeaderProps {
   currentTab?: AppNavTab;
   onSelectTab?: (tab: AppNavTab) => void;
   onOpenForm?: () => void;
-  currentView?: 'dashboard' | 'form' | 'user-panel';
+  onOpenLanding?: () => void;
+  currentView?: 'landing' | 'coach-dialogue' | 'dashboard' | 'user-panel' | 'form';
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -49,7 +50,8 @@ export const Header: React.FC<HeaderProps> = ({
   currentTab = 'workout',
   onSelectTab,
   onOpenForm,
-  currentView = 'form',
+  onOpenLanding,
+  currentView = 'landing',
 }) => {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
   const [showInstallModal, setShowInstallModal] = useState<boolean>(false);
@@ -162,26 +164,35 @@ export const Header: React.FC<HeaderProps> = ({
               ورود
             </button>
           )}
-          {/* Quick Switch to Gord Coach Questionnaire or Active Plan */}
-          {currentView !== 'form' && onOpenForm ? (
+          {/* Quick Switch to Coach Gord or Active Plan */}
+          {currentView !== 'coach-dialogue' && onOpenForm ? (
             <button
               type="button"
               onClick={onOpenForm}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-orange-500 to-amber-500 text-black text-xs font-black shadow-glow hover:scale-105 active:scale-95 transition-all mr-1"
-              title="طراحی و دریافت برنامه جدید با مربی گُرد"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-[#FF6B00] via-orange-500 to-amber-500 text-black text-xs font-black shadow-glow hover:scale-105 active:scale-95 transition-all mr-1 cursor-pointer"
+              title="شروع گفت‌وگو و دریافت برنامه با مربی گُرد"
             >
               <Sparkles className="w-3.5 h-3.5 fill-black" />
-              <span>فرم مربی گُرد</span>
+              <span>مربی گُرد</span>
             </button>
           ) : hasPlan && onSelectTab ? (
             <button
               type="button"
               onClick={() => onSelectTab('workout')}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl glass-input text-amber-400 text-xs font-bold hover:bg-white/10 active:scale-95 transition-all mr-1"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl glass-input text-amber-400 text-xs font-bold hover:bg-white/10 active:scale-95 transition-all mr-1 cursor-pointer"
               title="مشاهده برنامه تمرینی فعلی"
             >
               <Dumbbell className="w-3.5 h-3.5" />
               <span>برنامه جاری</span>
+            </button>
+          ) : onOpenLanding ? (
+            <button
+              type="button"
+              onClick={onOpenLanding}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-2xl glass-input text-slate-300 text-xs font-bold hover:bg-white/10 active:scale-95 transition-all mr-1 cursor-pointer"
+              title="بازگشت به صفحه اصلی"
+            >
+              <span>صفحه اصلی</span>
             </button>
           ) : null}
         </div>
@@ -247,8 +258,8 @@ export const Header: React.FC<HeaderProps> = ({
         <div
           className="flex items-center gap-2 cursor-pointer select-none"
           onClick={() => {
-            if (currentView === 'form' && hasPlan && onSelectTab) {
-              onSelectTab('workout');
+            if (onOpenLanding) {
+              onOpenLanding();
             } else if (onOpenForm) {
               onOpenForm();
             } else if (onSelectTab) {

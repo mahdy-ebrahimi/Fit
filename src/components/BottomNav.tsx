@@ -14,7 +14,7 @@ interface BottomNavProps {
   onSelectTab: (tab: AppNavTab) => void;
   hasPlan: boolean;
   onOpenForm?: () => void;
-  currentView?: 'dashboard' | 'form' | 'user-panel';
+  currentView?: 'dashboard' | 'form' | 'landing' | 'coach-dialogue' | 'user-panel';
 }
 
 export const BottomNav: React.FC<BottomNavProps> = ({

@@ -12,6 +12,8 @@ import { UserProfilePanel } from './components/UserProfilePanel';
 import { AuthModal } from './components/AuthModal';
 import { BottomNav, AppNavTab } from './components/BottomNav';
 import { ConfirmModal } from './components/ConfirmModal';
+import { GordLandingPage } from './components/GordLandingPage';
+import { GordInteractiveCoachForm } from './components/GordInteractiveCoachForm';
 import { GeneratedPlan, UserAccount, UserProfile } from './types/fitness';
 import { generateScientificFallbackPlan } from './utils/fallbackPlanGenerator';
 import {
@@ -69,11 +71,12 @@ export default function App() {
     }
   });
 
-  // Page Views and Navigation History: 'dashboard' | 'form' | 'user-panel'
-  const initialView = (plan && profile) ? 'dashboard' : 'form';
-  const [currentView, setCurrentView] = useState<'dashboard' | 'form' | 'user-panel'>(initialView);
+  // Page Views and Navigation History: 'landing' | 'coach-dialogue' | 'dashboard' | 'user-panel'
+  type AppView = 'landing' | 'coach-dialogue' | 'dashboard' | 'user-panel';
+  const initialView: AppView = 'landing';
+  const [currentView, setCurrentView] = useState<AppView>(initialView);
   const [currentTab, setCurrentTab] = useState<AppNavTab>('workout');
-  const [viewHistory, setViewHistory] = useState<Array<'dashboard' | 'form' | 'user-panel'>>([initialView]);
+  const [viewHistory, setViewHistory] = useState<AppView[]>([initialView]);
   const [historyIndex, setHistoryIndex] = useState<number>(0);
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -97,7 +100,7 @@ export default function App() {
   };
 
   // Navigate to view and record history
-  const navigateTo = (newView: 'dashboard' | 'form' | 'user-panel') => {
+  const navigateTo = (newView: AppView) => {
     if (newView === currentView) return;
     const nextHistory = [...viewHistory.slice(0, historyIndex + 1), newView];
     setViewHistory(nextHistory);
@@ -274,14 +277,14 @@ export default function App() {
       setProfile(user.profile);
       navigateTo('dashboard');
     } else {
-      navigateTo('form');
+      navigateTo('landing');
     }
   };
 
   const handleLogout = () => {
     logoutUser();
     setCurrentUser(null);
-    navigateTo('form');
+    navigateTo('landing');
   };
 
   const handleSwitchPlanFromPanel = (switchedPlan: GeneratedPlan, switchedProfile: UserProfile) => {
@@ -313,7 +316,8 @@ export default function App() {
         }}
         currentTab={currentTab}
         onSelectTab={handleSelectTab}
-        onOpenForm={() => navigateTo('form')}
+        onOpenForm={() => navigateTo('coach-dialogue')}
+        onOpenLanding={() => navigateTo('landing')}
         currentView={currentView}
       />
 
@@ -345,7 +349,7 @@ export default function App() {
         </div>
       )}
 
-      <main className={`flex-1 ${currentView === 'form' ? 'pb-24' : 'pb-32 sm:pb-24'}`}>
+      <main className={`flex-1 ${currentView === 'landing' ? 'pb-24' : 'pb-32 sm:pb-24'}`}>
         {/* Error notification */}
         {errorMessage && (
           <div className="max-w-4xl mx-auto px-4 mt-6">
@@ -382,16 +386,16 @@ export default function App() {
           <UserProfilePanel
             currentUser={currentUser}
             onSwitchPlan={handleSwitchPlanFromPanel}
-            onNewPlanRequest={() => navigateTo('form')}
+            onNewPlanRequest={() => navigateTo('coach-dialogue')}
             onLogout={handleLogout}
-            onBackToApp={() => navigateTo(plan ? 'dashboard' : 'form')}
+            onBackToApp={() => navigateTo(plan ? 'dashboard' : 'landing')}
             onUserUpdated={(updated) => setCurrentUser(updated)}
           />
         ) : currentView === 'dashboard' && plan && profile ? (
           <PlanDashboard
             plan={plan}
             profile={profile}
-            onEditProfile={() => navigateTo('form')}
+            onEditProfile={() => navigateTo('coach-dialogue')}
             activeTab={currentTab === 'workout' || currentTab === 'diet' || currentTab === 'metrics' ? currentTab : 'workout'}
             onTabChange={(tab) => {
               if (tab === 'workout' || tab === 'diet' || tab === 'metrics') {
@@ -406,12 +410,21 @@ export default function App() {
               }
             }}
           />
-        ) : (
-          <ProfileForm
+        ) : currentView === 'coach-dialogue' ? (
+          <GordInteractiveCoachForm
             onSubmit={handleGeneratePlan}
             isLoading={isLoading}
+            onCancel={() => navigateTo(plan ? 'dashboard' : 'landing')}
             onLoadDemo={handleLoadDemo}
-            onCancel={plan ? () => navigateTo('dashboard') : undefined}
+          />
+        ) : (
+          <GordLandingPage
+            onStartCoaching={() => navigateTo('coach-dialogue')}
+            onViewDemo={handleLoadDemo}
+            hasExistingPlan={!!plan}
+            onViewExistingPlan={() => navigateTo('dashboard')}
+            onSubmitProfile={handleGeneratePlan}
+            isLoading={isLoading}
           />
         )}
       </main>
@@ -427,21 +440,21 @@ export default function App() {
       <ConfirmModal
         isOpen={showResetConfirm}
         title="تنظیم مجدد و ساخت برنامه جدید"
-        message="آیا مایل به تنظیم مجدد مشخصات و دریافت یک برنامه تمرینی و تغذیه جدید هستید؟"
-        confirmText="بله، رفتن به فرم مشخصات"
+        message="آیا مایل به گفت‌وگوی مجدد با مربی گُرد و دریافت یک برنامه تمرینی و تغذیه جدید هستید؟"
+        confirmText="بله، رفتن به گفت‌وگوی مربی گُرد"
         cancelText="انصراف و ماندن در برنامه"
         variant="warning"
-        onConfirm={() => navigateTo('form')}
+        onConfirm={() => navigateTo('coach-dialogue')}
         onCancel={() => setShowResetConfirm(false)}
       />
 
-      {/* Native Mobile Bottom Navigation Bar: Only visible when reviewing plan or user profile */}
-      {currentView !== 'form' && (
+      {/* Native Mobile Bottom Navigation Bar: Visible when on dashboard or profile */}
+      {currentView !== 'coach-dialogue' && (
         <BottomNav
           currentTab={currentView === 'user-panel' ? 'profile' : currentTab}
           onSelectTab={handleSelectTab}
           hasPlan={!!plan}
-          onOpenForm={() => navigateTo('form')}
+          onOpenForm={() => navigateTo('coach-dialogue')}
           currentView={currentView}
         />
       )}

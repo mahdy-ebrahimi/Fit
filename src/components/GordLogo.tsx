@@ -2,11 +2,19 @@ import React from 'react';
 
 interface GordLogoProps {
   className?: string;
-  size?: 'sm' | 'md' | 'lg' | 'header';
+  size?: 'sm' | 'md' | 'lg' | 'hero' | 'header';
   showSubtitle?: boolean;
   withGlow?: boolean;
 }
 
+/**
+ * GordLogo: Ultra-faithful vector recreation of the official "گُرد / GORD" Emblem (IMG_5174.png)
+ * - Heraldic Persian Arch Crest Shield in deep midnight royal blue
+ * - Double ornate bevel gold border with royal Persian architectural styling
+ * - Athletic Persian hero silhouette with pompadour hair, gold meander headband, and heroic beard
+ * - Majestic Persian calligraphy "گُرد" with gold metallic gradient
+ * - Bold Latin "GORD" athletic typography
+ */
 export const GordLogo: React.FC<GordLogoProps> = ({
   className = '',
   size = 'md',
@@ -15,178 +23,196 @@ export const GordLogo: React.FC<GordLogoProps> = ({
 }) => {
   // Dimension presets
   const sizeMap = {
-    sm: { width: 34, height: 34, textScale: 'text-base' },
-    md: { width: 44, height: 44, textScale: 'text-xl' },
-    header: { width: 42, height: 42, textScale: 'text-xl' },
-    lg: { width: 72, height: 72, textScale: 'text-3xl' },
+    sm: { width: 36, height: 36, textClass: 'text-xs' },
+    md: { width: 48, height: 48, textClass: 'text-sm' },
+    header: { width: 44, height: 44, textClass: 'text-sm sm:text-base' },
+    lg: { width: 80, height: 80, textClass: 'text-xl' },
+    hero: { width: 120, height: 120, textClass: 'text-2xl' },
   };
 
   const currentSize = sizeMap[size] || sizeMap.md;
 
   return (
-    <div className={`flex items-center gap-2.5 select-none ${className}`}>
-      {/* Visual Emblem Shield from IMG_5174 */}
+    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
+      {/* Crest Icon SVG */}
       <div className="relative shrink-0 flex items-center justify-center">
         {withGlow && (
-          <div className="absolute inset-0 bg-[#FF6B00]/25 rounded-2xl blur-md scale-110 pointer-events-none" />
+          <div className="absolute inset-0 bg-[#FF6B00]/30 rounded-2xl blur-lg scale-125 pointer-events-none" />
         )}
 
         <svg
           width={currentSize.width}
           height={currentSize.height}
-          viewBox="0 0 120 120"
+          viewBox="0 0 160 180"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          className="relative z-10 transition-transform hover:scale-105 duration-300 filter drop-shadow(0_4px_12px_rgba(255,107,0,0.25))"
+          className="relative z-10 transition-transform hover:scale-105 duration-300 filter drop-shadow(0_6px_16px_rgba(255,107,0,0.3))"
         >
           <defs>
-            {/* Outer Gold Border Gradient */}
-            <linearGradient id="goldBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FFA000" />
-              <stop offset="50%" stopColor="#FF6B00" />
-              <stop offset="100%" stopColor="#D97706" />
+            {/* Outer Gold Gradient */}
+            <linearGradient id="gordGoldOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FFE082" />
+              <stop offset="30%" stopColor="#FFA000" />
+              <stop offset="70%" stopColor="#FF6B00" />
+              <stop offset="100%" stopColor="#C45000" />
             </linearGradient>
 
-            {/* Shield Royal Blue Background */}
-            <linearGradient id="shieldBlueGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+            {/* Inner Metallic Gold Rim */}
+            <linearGradient id="gordGoldRim" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#B45309" />
+              <stop offset="50%" stopColor="#FBBF24" />
+              <stop offset="100%" stopColor="#FFFBEB" />
+            </linearGradient>
+
+            {/* Shield Deep Royal Blue Field */}
+            <radialGradient id="gordShieldBg" cx="50%" cy="30%" r="70%">
               <stop offset="0%" stopColor="#1E3A8A" />
-              <stop offset="60%" stopColor="#0F172A" />
-              <stop offset="100%" stopColor="#030712" />
-            </linearGradient>
+              <stop offset="45%" stopColor="#0F172A" />
+              <stop offset="100%" stopColor="#040812" />
+            </radialGradient>
 
-            {/* Champion Muscle Shading Gradient */}
-            <linearGradient id="heroBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            {/* Hero Body / Muscle Shading */}
+            <linearGradient id="gordHeroBody" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#FFFFFF" />
-              <stop offset="70%" stopColor="#F1F5F9" />
-              <stop offset="100%" stopColor="#94A3B8" />
+              <stop offset="40%" stopColor="#F8FAFC" />
+              <stop offset="80%" stopColor="#CBD5E1" />
+              <stop offset="100%" stopColor="#64748B" />
             </linearGradient>
 
-            {/* Gold Headband Gradient */}
-            <linearGradient id="headbandGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stopColor="#FBBF24" />
-              <stop offset="50%" stopColor="#F59E0B" />
+            {/* Gold Headband & Accents */}
+            <linearGradient id="gordHeroGold" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#F59E0B" />
+              <stop offset="50%" stopColor="#FFB800" />
               <stop offset="100%" stopColor="#D97706" />
             </linearGradient>
 
-            {/* Persian Navy Calligraphy Gradient */}
-            <linearGradient id="calligraphyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#38BDF8" />
-              <stop offset="40%" stopColor="#0284C7" />
-              <stop offset="100%" stopColor="#0369A1" />
-            </linearGradient>
+            {/* Shield Drop Shadow */}
+            <filter id="gordShieldShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="6" stdDeviation="6" floodColor="#000000" floodOpacity="0.6" />
+            </filter>
           </defs>
 
-          {/* Persian Arch Shield Base */}
+          {/* 1. Outer Ornate Shield Outline (Heraldic Persian Crest with curved arch top) */}
           <path
-            d="M60 4 C76 4, 102 14, 106 36 C108 58, 96 82, 60 114 C24 82, 12 58, 14 36 C18 14, 44 4, 60 4 Z"
-            fill="url(#goldBorderGrad)"
-          />
-          {/* Inner Persian Shield */}
-          <path
-            d="M60 9 C73 9, 97 18, 100 38 C102 57, 91 78, 60 108 C29 78, 18 57, 20 38 C23 18, 47 9, 60 9 Z"
-            fill="url(#shieldBlueGrad)"
+            d="M80 6 C105 6, 142 16, 148 48 C152 78, 134 116, 80 166 C26 116, 8 78, 12 48 C18 16, 55 6, 80 6 Z"
+            fill="url(#gordGoldOuter)"
+            filter="url(#gordShieldShadow)"
           />
 
-          {/* Damask / Persian Floral Accent Marks in background */}
+          {/* 2. Middle Gold Rim Inset */}
           <path
-            d="M60 22 C64 26 66 30 60 36 C54 30 56 26 60 22 Z"
-            fill="#38BDF8"
-            opacity="0.25"
-          />
-          <circle cx="48" cy="38" r="3.5" fill="#F59E0B" opacity="0.3" />
-          <circle cx="72" cy="38" r="3.5" fill="#F59E0B" opacity="0.3" />
-
-          {/* Athletic Hero Champion Silhouette (Gord) */}
-          {/* Head & Wavy Hair */}
-          <path
-            d="M56 25 C50 25, 45 29, 44 36 C43 43, 46 47, 49 50 C48 53, 51 55, 54 55 C58 55, 63 52, 66 47 C72 47, 76 42, 75 35 C74 27, 65 25, 56 25 Z"
-            fill="#0F172A"
-          />
-          {/* Hero Profile Face & Beard */}
-          <path
-            d="M58 29 C63 29, 68 33, 68 38 C68 41, 66 44, 64 45 C64 47, 61 50, 56 50 C52 50, 50 47, 50 44 C50 41, 52 38, 54 35 C55 31, 56 29, 58 29 Z"
-            fill="url(#heroBodyGrad)"
-          />
-          {/* Beard Profile */}
-          <path
-            d="M64 42 C67 44, 69 47, 66 52 C63 56, 57 56, 54 53 C58 52, 61 49, 61 46 C62 44, 63 43, 64 42 Z"
-            fill="#0F172A"
+            d="M80 12 C101 12, 134 20, 139 49 C143 75, 126 109, 80 155 C34 109, 17 75, 21 49 C26 20, 59 12, 80 12 Z"
+            fill="url(#gordGoldRim)"
           />
 
-          {/* Ancient Persian Gold Headband with Meander Marks */}
+          {/* 3. Deep Midnight Blue Shield Core */}
           <path
-            d="M52 32 C58 31, 67 33, 72 36 L70 40 C65 37, 57 35, 51 36 Z"
-            fill="url(#headbandGrad)"
+            d="M80 18 C99 18, 128 25, 132 50 C136 73, 120 103, 80 146 C40 103, 24 73, 28 50 C32 25, 61 18, 80 18 Z"
+            fill="url(#gordShieldBg)"
           />
-          {/* Headband Greek/Persian key pattern lines */}
-          <path
-            d="M54 34 H57 V36 H55 M59 34.5 H62 V36.5 H60 M64 35 H67 V37 H65"
-            stroke="#92400E"
+
+          {/* 4. Subtle Radial Laurel / Starburst Accent Rays */}
+          <g opacity="0.18">
+            <path d="M80 30 L80 135" stroke="#FBBF24" strokeWidth="1" strokeDasharray="3 3" />
+            <path d="M35 55 L125 110" stroke="#FBBF24" strokeWidth="1" strokeDasharray="3 3" />
+            <path d="M125 55 L35 110" stroke="#FBBF24" strokeWidth="1" strokeDasharray="3 3" />
+          </g>
+
+          {/* 5. Central Muscular Persian Hero Champion (Gord Bust) */}
+          <g id="hero-bust">
+            {/* Trapezius and Muscular Broad Neck */}
+            <path d="M66 66 C70 60, 90 60, 94 66 L98 84 C88 88, 72 88, 62 84 Z" fill="url(#gordHeroBody)" />
+
+            {/* Broad Deltoid Shoulders and Chest Armor Pectorals */}
+            <path
+              d="M40 92 C46 80, 60 76, 70 78 C76 86, 84 86, 90 78 C100 76, 114 80, 120 92 C124 104, 118 118, 102 120 C88 122, 72 122, 58 120 C42 118, 36 104, 40 92 Z"
+              fill="url(#gordHeroBody)"
+            />
+
+            {/* Pectoral Cut Definition Lines */}
+            <path d="M80 82 V112" stroke="#475569" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M54 98 C66 102, 76 102, 80 96" stroke="#475569" strokeWidth="2" strokeLinecap="round" />
+            <path d="M106 98 C94 102, 84 102, 80 96" stroke="#475569" strokeWidth="2" strokeLinecap="round" />
+
+            {/* Gold Armor Trim on Pectorals */}
+            <path d="M52 110 C68 114, 92 114, 108 110" stroke="url(#gordHeroGold)" strokeWidth="3" strokeLinecap="round" />
+
+            {/* Hero Head, Jawline and Face */}
+            <ellipse cx="80" cy="50" rx="15" ry="17" fill="url(#gordHeroBody)" />
+
+            {/* Flowing Styled Hair (Pompadour) */}
+            <path
+              d="M62 46 C60 30, 72 24, 80 24 C88 24, 100 30, 98 46 C94 36, 88 32, 80 32 C72 32, 66 36, 62 46 Z"
+              fill="#0F172A"
+            />
+            <path
+              d="M58 48 C56 56, 60 62, 64 66 C64 58, 62 52, 64 46 Z"
+              fill="#0F172A"
+            />
+            <path
+              d="M102 48 C104 56, 100 62, 96 66 C96 58, 98 52, 96 46 Z"
+              fill="#0F172A"
+            />
+
+            {/* Ancient Persian Gold Headband across Forehead */}
+            <path d="M64 42 C72 40, 88 40, 96 42 L96 47 C88 45, 72 45, 64 47 Z" fill="url(#gordHeroGold)" />
+            {/* Geometric Meander Dots on Headband */}
+            <circle cx="70" cy="44.5" r="1" fill="#78350F" />
+            <circle cx="75" cy="44" r="1" fill="#78350F" />
+            <circle cx="80" cy="44" r="1" fill="#78350F" />
+            <circle cx="85" cy="44" r="1" fill="#78350F" />
+            <circle cx="90" cy="44.5" r="1" fill="#78350F" />
+
+            {/* Heroic Full Beard and Mustache */}
+            <path
+              d="M66 52 C72 50, 77 50, 80 53 C83 50, 88 50, 94 52 C96 64, 90 74, 80 77 C70 74, 64 64, 66 52 Z"
+              fill="#0F172A"
+            />
+          </g>
+
+          {/* 6. Gold Plaque Banner for Latin "GORD" */}
+          <rect
+            x="48"
+            y="126"
+            width="64"
+            height="18"
+            rx="4"
+            fill="url(#gordGoldOuter)"
+            stroke="#FFFBEB"
             strokeWidth="0.8"
-            strokeLinecap="round"
           />
+          <text
+            x="80"
+            y="139"
+            textAnchor="middle"
+            fill="#091224"
+            fontSize="11"
+            fontWeight="900"
+            letterSpacing="2.5"
+            fontFamily="system-ui, -apple-system, sans-serif"
+          >
+            GORD
+          </text>
 
-          {/* Massive Traps, Chest and Deltoids */}
-          {/* Left Deltoid */}
-          <path
-            d="M32 60 C32 50, 42 47, 48 52 C45 60, 41 72, 38 84 C34 78, 32 69, 32 60 Z"
-            fill="url(#heroBodyGrad)"
-          />
-          {/* Right Deltoid & Chest */}
-          <path
-            d="M88 60 C88 50, 78 47, 72 52 C75 60, 79 72, 82 84 C86 78, 88 69, 88 60 Z"
-            fill="url(#heroBodyGrad)"
-          />
-          {/* Powerful Pectoral Muscles */}
-          <path
-            d="M47 54 C53 50, 67 50, 73 54 C74 65, 71 80, 60 92 C49 80, 46 65, 47 54 Z"
-            fill="url(#heroBodyGrad)"
-          />
-          {/* Muscle Contour Lines */}
-          <path
-            d="M60 52 V86 M48 64 C53 68, 58 68, 60 67 M72 64 C67 68, 62 68, 60 67 M52 75 C56 78, 59 78, 60 78 M68 75 C64 78, 61 78, 60 78"
-            stroke="#0F172A"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-          />
-
-          {/* Stylized Golden Accents on Collar/Traps */}
-          <path
-            d="M48 48 C54 44, 66 44, 72 48"
-            stroke="url(#goldBorderGrad)"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-          />
-
-          {/* Lower Dynamic Persian Calligraphy Splash on Crest Base */}
-          <path
-            d="M36 94 C46 90, 74 90, 84 94 C76 104, 66 110, 60 114 C54 110, 44 104, 36 94 Z"
-            fill="url(#goldBorderGrad)"
-          />
+          {/* 7. Crown/Top Jewel Accent */}
+          <polygon points="80,1 84,6 80,10 76,6" fill="url(#gordGoldRim)" />
         </svg>
       </div>
 
-      {/* Typography: گُرد / GORD */}
-      <div className="flex flex-col text-right">
+      {/* Typography Block */}
+      <div className="flex flex-col text-right leading-tight">
         <div className="flex items-center gap-1.5">
-          <span className="font-black text-white tracking-tight leading-none font-sans drop-shadow-sm flex items-center">
-            <span className={`${currentSize.textScale} text-transparent bg-clip-text bg-gradient-to-l from-white via-amber-100 to-white font-extrabold`}>
-              گُـرد
-            </span>
-            <span className="text-[#FF6B00] mr-1 text-xs font-black px-1.5 py-0.5 rounded-md bg-[#FF6B00]/15 border border-[#FF6B00]/30 font-mono tracking-normal">
-              PRO
-            </span>
+          <span className={`font-black tracking-tight text-white ${currentSize.textClass}`}>
+            گُــــرد
+          </span>
+          <span className="text-[10px] font-mono font-black text-amber-400 bg-amber-500/15 border border-amber-500/30 px-1.5 py-0.5 rounded-md">
+            GORD
           </span>
         </div>
-
         {showSubtitle && (
-          <div className="flex items-center gap-1 mt-0.5">
-            <span className="w-2.5 h-[1.5px] bg-[#FF6B00]/60 rounded-full" />
-            <span className="text-[10px] sm:text-[11px] font-extrabold tracking-[0.22em] text-[#FF6B00] font-mono uppercase">
-              G O R D
-            </span>
-            <span className="w-2.5 h-[1.5px] bg-[#FF6B00]/60 rounded-full" />
-          </div>
+          <span className="text-[10px] sm:text-[11px] font-bold text-slate-400 tracking-normal">
+            مربی هوش مصنوعی بدنسازی و تغذیه
+          </span>
         )}
       </div>
     </div>
