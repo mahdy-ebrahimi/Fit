@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <rect width="512" height="512" rx="128" fill="#030712"/>
+  <defs>
+    <linearGradient id="goldBorderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="50%" stop-color="#FF6B00"/>
+      <stop offset="100%" stop-color="#B45309"/>
+    </linearGradient>
+    <linearGradient id="shieldBlueGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#1E3A8A"/>
+      <stop offset="60%" stop-color="#0F172A"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+    <linearGradient id="heroBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="70%" stop-color="#F1F5F9"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Persian Arch Shield -->
+  <path d="M256 32 C340 32, 452 72, 470 170 C480 270, 430 380, 256 480 C82 380, 32 270, 42 170 C60 72, 172 32, 256 32 Z" fill="url(#goldBorderGrad)"/>
+  <path d="M256 52 C325 52, 430 88, 445 175 C454 265, 410 365, 256 460 C102 365, 58 265, 67 175 C82 88, 187 52, 256 52 Z" fill="url(#shieldBlueGrad)"/>
+
+  <!-- Pahlavan / Gord Silhouette -->
+  <!-- Hair & Head -->
+  <path d="M235 120 C205 120, 185 140, 180 175 C178 200, 195 220, 208 230 C205 242, 218 250, 230 250 C248 250, 268 235, 280 215 C305 215, 325 195, 320 165 C315 130, 275 120, 235 120 Z" fill="#0F172A"/>
+  <path d="M245 138 C265 138, 288 155, 288 178 C288 190, 280 205, 270 210 C270 218, 258 230, 238 230 C220 230, 212 218, 212 205 C212 190, 220 178, 230 165 Z" fill="url(#heroBodyGrad)"/>
+  <!-- Gold Headband -->
+  <path d="M220 152 C245 148, 285 158, 305 170 L298 188 C278 176, 240 166, 218 170 Z" fill="url(#goldBorderGrad)"/>
+
+  <!-- Chest & Deltoids -->
+  <path d="M135 275 C135 230, 178 215, 205 240 C190 275, 175 330, 162 380 C145 350, 135 315, 135 275 Z" fill="url(#heroBodyGrad)"/>
+  <path d="M377 275 C377 230, 334 215, 307 240 C322 275, 337 330, 350 380 C367 350, 377 315, 377 275 Z" fill="url(#heroBodyGrad)"/>
+  <path d="M200 250 C228 230, 284 230, 312 250 C316 300, 303 365, 256 415 C209 365, 196 300, 200 250 Z" fill="url(#heroBodyGrad)"/>
+
+  <!-- Muscle Shadows -->
+  <path d="M256 240 V390 M205 295 C226 312, 248 312, 256 310 M307 295 C286 312, 264 312, 256 310" stroke="#0F172A" stroke-width="10" stroke-linecap="round"/>
+</svg>

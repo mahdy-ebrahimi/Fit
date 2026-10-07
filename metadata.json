@@ -1,0 +1,6 @@
+{
+  "name": "FitGen AI - مربی هوش مصنوعی بدنسازی و تغذیه",
+  "description": "سیستم هوشمند طراحی برنامه بدنسازی و رژیم غذایی شخصی‌سازی شده بر اساس مشخصات بدنی، آسیب‌دیدگی‌ها، نقاط ضعف و ترجیحات غذایی",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

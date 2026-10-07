@@ -1,0 +1,196 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian-950: #070b14;
+  --color-obsidian-900: #0d1424;
+  --color-obsidian-850: #121b2f;
+  --color-obsidian-800: #18233c;
+  --color-obsidian-750: #202d4a;
+  --color-obsidian-700: #2a3a5e;
+
+  --color-reading-headline: #f8fafc;
+  --color-reading-body: #e2e8f0;
+  --color-reading-muted: #94a3b8;
+  --color-reading-amber: #fbbf24;
+  --color-reading-emerald: #34d399;
+
+  --font-sans: 'Vazirmatn', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+:root {
+  font-family: 'Vazirmatn', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: #050505;
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(255, 107, 0, 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.05), transparent 25%);
+  background-attachment: fixed;
+  color: #f3f4f6;
+  font-family: 'Vazirmatn', system-ui, sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Safe Area & Mobile Inset Utilities */
+.safe-top {
+  padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
+}
+.safe-bottom {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0px));
+}
+.safe-dock-bottom {
+  padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+}
+.safe-dock-top {
+  padding-top: calc(0.75rem + env(safe-area-inset-top, 0px));
+}
+.safe-left {
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+}
+.safe-right {
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+}
+
+/* Smooth Touch Scrolling without Ugly Scrollbars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Glassmorphism utility classes */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05); /* رنگ سفید بسیار شفاف */
+  backdrop-filter: blur(16px); /* کلید اصلی افکت شیشهای: تار کردن بکگراند */
+  -webkit-backdrop-filter: blur(16px); /* برای پشتیبانی سافاری */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* حاشیه ظریف شیشهای */
+  border-radius: 16px; /* گوشههای گرد */
+}
+
+.glass-panel {
+  background: rgba(20, 20, 22, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.25s ease;
+}
+
+.glass-input:focus {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #FF6B00;
+  outline: none;
+  box-shadow: 0 0 15px rgba(255, 107, 0, 0.3);
+}
+
+/* Hide number input arrows */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+.shadow-glass {
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
+}
+
+.shadow-glow {
+  box-shadow: 0 0 18px rgba(255, 107, 0, 0.45);
+}
+
+.shadow-glow-red {
+  box-shadow: 0 0 18px rgba(239, 68, 68, 0.4);
+}
+
+.bg-brand-primary {
+  background-color: #FF6B00;
+}
+
+.text-brand-primary {
+  color: #FF6B00;
+}
+
+.border-brand-primary {
+  border-color: #FF6B00;
+}
+
+/* Custom High-Contrast Long Text Reading Classes */
+.diet-reading-prose {
+  color: #e2e8f0;
+  line-height: 2.1;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+}
+
+.diet-reading-card {
+  background: linear-gradient(180deg, #0e1526 0%, #0a0f1c 100%);
+  border: 1px solid #1c273e;
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+}
+
+.diet-reading-card:hover {
+  border-color: #2b3b5b;
+}
+
+.diet-reading-item {
+  background-color: #090e1a;
+  border: 1px solid #182236;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #070b14;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #202d4a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2f4066;
+}
+
+::selection {
+  background-color: #FF6B00;
+  color: #000000;
+}
+
+@media print {
+  body {
+    background: #ffffff !important;
+    background-image: none !important;
+    color: #0f172a !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .glass-panel, .diet-reading-card {
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    box-shadow: none !important;
+  }
+}

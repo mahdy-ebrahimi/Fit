@@ -1,0 +1,35 @@
+{
+  "id": "/",
+  "name": "گُرد | مربی هوش مصنوعی بدنسازی و تغذیه",
+  "short_name": "گُرد",
+  "description": "سیستم هوشمند طراحی برنامه بدنسازی و رژیم غذایی شخصی‌سازی شده بر اساس بیومکانیک، نقاط ضعف، آسیب‌دیدگی‌ها و کالری روزانه",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#070b14",
+  "theme_color": "#070b14",
+  "dir": "rtl",
+  "lang": "fa",
+  "categories": ["fitness", "health", "sports"],
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
